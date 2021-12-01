@@ -38,7 +38,7 @@ class EvenementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
         $event = new   Evenement();        
         $event->NomType = $request->input('NomType');  
         ..................        

@@ -26,6 +26,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+
+
+        
         $ID = Auth::user()->Id_Personnes;
 
         if($Joueur=Joueur::find($ID)){
