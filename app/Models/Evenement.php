@@ -13,10 +13,10 @@ class Evenement extends Model
     public $timestamps = false ;
 
     protected $fillable = [
-        'Lieu',
-        'Type',
+        'Id_Lieu',
+        'Id_Type',
         'DateEvent',
-        
+        'Id_Personnes',       
     ];
 
     //------------------------clé plusieurs a plusieurs---------------------------//

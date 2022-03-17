@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Type;
 use App\Models\Evenement;
+use App\Models\Entraineur;
+use App\Models\Lieu;
+use Illuminate\Support\Facades\Auth;
+use App\Models;
 
 class EvenementController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,8 +34,17 @@ class EvenementController extends Controller
      */
     public function create()
     {
+        $ID = Auth::user()->Id_Personnes;       
         $Type = Type::all();
+
+        if($Entraineur=Entraineur::find($ID))
+        {                  
         return view('Evenement.CreateEvenement', ['Type'=>$Type]);
+        }
+        else
+        {
+        return view('home');
+        }
 
     }
 
@@ -38,13 +55,27 @@ class EvenementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
-        $event = new   Evenement();        
-        $event->NomType = $request->input('NomType');  
-        ..................        
-        $event->save();        
-        //Enregistrement des jointures avec les types d'activités........................................ 
-        return redirect('Evenement');
+    {
+        $request->validate([
+            'lieu'=>'required',
+            'date'=>'required',
+        ]);
+
+        $lieu = lieu::create([
+            'AdresseLieu' => $request['lieu'] 
+        ]);
+
+
+        $e=Evenement::create([
+            'DateEvent' => $request['date'],
+            'Id_Type' => $request['Type'],
+            'Id_Lieu' => $lieu->Id_Lieu,
+            'Id_Personnes'=> Auth::user()->Id_Personnes
+        ]);
+
+        return view('home');
+
+
     }
 
     /**
@@ -68,7 +99,10 @@ class EvenementController extends Controller
      */
     public function edit($id)
     {
-        //
+        $event = Evenement::find($id);
+
+
+        return view('Evenement.edit', compact('event', 'id'));
     }
 
     /**
@@ -80,7 +114,11 @@ class EvenementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $event = Evenement::find($id);        
+        $event  ->DateEvent = $request->input('DateEvent');          
+        $event->save();        
+        $event->types()->sync($request->input('types'));           
+        return redirect('Evenement');
     }
 
     /**
@@ -91,6 +129,9 @@ class EvenementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $event = Evenement::find($id);
+        $event->delete();
+        //$event->save();
+        return redirect('Evenement');
     }
 }

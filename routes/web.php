@@ -23,3 +23,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('personnes', [App\Http\Controllers\UserControl::class, 'getUsers'])->middleware('Auth');
 
 Route:: resource('Evenement','App\Http\Controllers\EvenementController');
+//Route::delete('/Evenement/{id}', EvenementController@destroy);

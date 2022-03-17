@@ -3,17 +3,12 @@
 @section('content')
 
 <div class="container">
-    <h2>Enregistrer un nouvel evenement :</h2><br />
+    <h2>Modifier un evenement :</h2><br />
     <form method="post" action="{{route('Evenement.store')}}">
         @csrf
         <div class="row">
             <div class="cold-md-6">
                 <div class="form-group row">
-                    <div class="form-group row">
-                        <label for="lieu" class="col-sm-4"> lieu :</label>
-                        <input type="text" class="form-control col-sm-6" name=lieu required>
-                    </div>
-                    <br>
                     <div class="form-group row">
                         <label for="date" class="col-sm-4"> Date de l'evenement :</label>
                         <input type="text" class="form-control col-sm-6" name=date required>

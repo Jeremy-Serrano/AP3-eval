@@ -17,9 +17,7 @@
                     {{ __('You are logged in!') }}
                 </div>
                 
-                <div>
-                    <a href="{{route('Evenement.create')}}">Ajouter un Evenement</a>
-                </div>
+                
 
             </div>
         </div>
