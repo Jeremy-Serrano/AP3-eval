@@ -16,12 +16,7 @@
                 @csrf
             </form>
 
-            <form action="{{ route('Evenement.edit', $un_evenement->Id_Evenement) }}" method="POST">
-                <input name="_method" type="hidden" value="Modifier">
-                @method('PUT')
-                @csrf
-            </form>
-
+            <a href="{{route('Evenement.edit', $un_evenement->Id_Evenement)}}">Modifier</a>
         </li>
         @endforeach
     </ul>

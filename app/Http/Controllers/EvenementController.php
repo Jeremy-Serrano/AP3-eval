@@ -99,9 +99,7 @@ class EvenementController extends Controller
      */
     public function edit($id)
     {
-        $event = Evenement::find($id);
-
-
+        $event = Type::find($id);
         return view('Evenement.edit', compact('event', 'id'));
     }
 
